@@ -1,0 +1,38 @@
+.auth-page {
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.auth-page input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.auth-page button {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-page .toggle-auth {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth-page .error {
+  color: red;
+  margin-bottom: 10px;
+}
