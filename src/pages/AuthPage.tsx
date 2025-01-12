@@ -24,33 +24,43 @@ const AuthPage: React.FC = () => {
     }
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleAuth();
+    }
+  };
+
   return (
     <div className="auth-page">
-      <h2>{isRegistering ? "Rejestracja" : "Logowanie"}</h2>
-      {error && <p className="error">{error}</p>}
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Hasło"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleAuth}>
-        {isRegistering ? "Zarejestruj się" : "Zaloguj się"}
-      </button>
-      <p
-        onClick={() => setIsRegistering(!isRegistering)}
-        className="toggle-auth"
-      >
-        {isRegistering
-          ? "Masz już konto? Zaloguj się"
-          : "Nie masz konta? Zarejestruj się"}
-      </p>
+      <div className="auth-container">
+        <h2>{isRegistering ? "Rejestracja" : "Logowanie"}</h2>
+        {error && <p className="error">{error}</p>}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <input
+          type="password"
+          placeholder="Hasło"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <button className="auth-button" onClick={handleAuth}>
+          {isRegistering ? "Zarejestruj się" : "Zaloguj się"}
+        </button>
+        <p
+          onClick={() => setIsRegistering(!isRegistering)}
+          className="toggle-auth"
+        >
+          {isRegistering
+            ? "Masz już konto? Zaloguj się"
+            : "Nie masz konta? Zarejestruj się"}
+        </p>
+      </div>
     </div>
   );
 };

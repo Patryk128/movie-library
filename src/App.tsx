@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import Navbar from "./pages/Navbar";
 import Home from "./pages/Home";
-import MyMovies from "./pages/MyMovies"; // Import strony Moje filmy
 import AuthPage from "./pages/AuthPage";
+import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./pages/AuthContext";
 
 const App: React.FC = () => {
@@ -28,6 +28,8 @@ const App: React.FC = () => {
             path="/my-movies"
             element={user ? <MyMovies /> : <Navigate to="/auth" />}
           />
+          {/* Domyślna trasa dla błędu 404 */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </AuthProvider>

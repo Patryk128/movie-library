@@ -18,6 +18,10 @@ nav h1 {
   gap: 10px;
 }
 
+.navbar-auth span {
+  font-family: "Roboto", sans-serif;
+}
+
 nav button {
   background-color: blue;
   color: white;
@@ -31,6 +35,10 @@ nav button.logout {
   background-color: red;
 }
 
+.login {
+  text-decoration: none;
+  color: #fff;
+}
 .logout-message {
   position: fixed;
   top: 10px;

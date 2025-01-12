@@ -122,7 +122,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <h1>Filmy</h1>
+      <h1 className="home-title">Filmy</h1>
 
       <div className="view-toggle-buttons">
         <button
