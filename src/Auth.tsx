@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth } from "./firebaseConfig";
+import { auth } from "./config/firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -21,8 +21,12 @@ const Auth: React.FC = () => {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Wystąpił nieznany błąd.");
+      }
     }
   };
 

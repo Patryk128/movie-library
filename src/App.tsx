@@ -5,11 +5,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Navbar from "./pages/Navbar";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import AuthPage from "./pages/AuthPage";
 import NotFound from "./pages/NotFound";
-import { AuthProvider, useAuth } from "./pages/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
 const App: React.FC = () => {
   const { user } = useAuth();
@@ -17,20 +17,17 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/auth"
-            element={user ? <Navigate to="/" /> : <AuthPage />}
-          />
-          <Route
-            path="/my-movies"
-            element={user ? <MyMovies /> : <Navigate to="/auth" />}
-          />
-          {/* Domyślna trasa dla błędu 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div className="app-container">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/auth"
+              element={user ? <Navigate to="/" /> : <AuthPage />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </Router>
     </AuthProvider>
   );

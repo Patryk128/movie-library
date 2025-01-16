@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
-import "./AuthModal.css";
+import { useAuth } from "../context/AuthContext";
+import "../styles/AuthModal.css";
 
 const AuthModal: React.FC = () => {
   const { login, register } = useAuth();
@@ -19,7 +19,7 @@ const AuthModal: React.FC = () => {
       }
       setEmail("");
       setPassword("");
-      navigate("/"); // Przeniesienie na stronę główną
+      navigate("/");
     } catch (error) {
       console.error("Błąd logowania/rejestracji:", error);
     }

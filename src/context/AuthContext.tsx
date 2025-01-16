@@ -1,25 +1,32 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { auth } from "../firebaseConfig";
+import { auth } from "../config/firebaseConfig";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   User,
+  UserCredential,
 } from "firebase/auth";
 
 interface AuthContextProps {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<UserCredential>;
+  register: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps>({
   user: null,
-  login: async () => {},
-  register: async () => {},
-  logout: async () => {},
+  login: async () => {
+    throw new Error("login not implemented");
+  },
+  register: async () => {
+    throw new Error("register not implemented");
+  },
+  logout: async () => {
+    throw new Error("logout not implemented");
+  },
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({

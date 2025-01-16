@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useAuth } from "../pages/AuthContext.tsx";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "../pages/AuthPage.css";
+import "../styles/AuthPage.css";
 
 const AuthPage: React.FC = () => {
   const { login, register } = useAuth();
@@ -18,9 +18,13 @@ const AuthPage: React.FC = () => {
       } else {
         await login(email, password);
       }
-      navigate("/"); // Przekierowanie po logowaniu/rejestracji
-    } catch (err: any) {
-      setError(err.message);
+      navigate("/");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Wystąpił nieznany błąd.");
+      }
     }
   };
 

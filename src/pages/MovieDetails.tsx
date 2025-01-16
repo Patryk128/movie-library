@@ -5,9 +5,17 @@ import axios from "axios";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  vote_average: number;
+  poster_path: string | null;
+}
+
 const MovieDetails: React.FC = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState<any>(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,10 +44,14 @@ const MovieDetails: React.FC = () => {
       <h1>{movie.title}</h1>
       <p>{movie.overview}</p>
       <p>Ocena: {movie.vote_average} / 10</p>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-        alt={movie.title}
-      />
+      {movie.poster_path ? (
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt={movie.title}
+        />
+      ) : (
+        <p>Brak dostępnego plakatu.</p>
+      )}
     </div>
   );
 };

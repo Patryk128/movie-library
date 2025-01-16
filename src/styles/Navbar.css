@@ -1,4 +1,4 @@
-nav {
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,7 +7,7 @@ nav {
   color: white;
 }
 
-nav h1 {
+.navbar-title {
   margin: 0;
   font-size: 24px;
 }
@@ -22,7 +22,7 @@ nav h1 {
   font-family: "Roboto", sans-serif;
 }
 
-nav button {
+.navbar button {
   background-color: blue;
   color: white;
   border: none;
@@ -31,7 +31,7 @@ nav button {
   cursor: pointer;
 }
 
-nav button.logout {
+.navbar button.logout {
   background-color: red;
 }
 
@@ -41,7 +41,7 @@ nav button.logout {
 }
 .logout-message {
   position: fixed;
-  top: 10px;
+  top: 60px;
   right: 10px;
   background-color: #28a745;
   color: white;

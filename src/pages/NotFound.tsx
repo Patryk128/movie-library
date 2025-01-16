@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./NotFound.css"; // Opcjonalnie, jeśli chcesz dodać stylizację
+import "../styles/NotFound.css"; // Opcjonalnie, jeśli chcesz dodać stylizację
 
 const NotFound: React.FC = () => (
   <div className="not-found-container">
