@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
     try {
       await logout();
       setLogoutMessage("Pomyślnie wylogowano!");
-      setTimeout(() => setLogoutMessage(null), 3000); // Wiadomość znika po 3 sekundach
+      setTimeout(() => setLogoutMessage(null), 3000);
     } catch (error) {
       console.error("Błąd podczas wylogowywania:", error);
     }

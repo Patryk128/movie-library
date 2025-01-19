@@ -31,6 +31,7 @@ const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<"all" | "watched">("all");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const watchedMoviesRef = collection(
     db,
@@ -84,7 +85,8 @@ const Home: React.FC = () => {
 
   const toggleWatched = async (movieId: string): Promise<void> => {
     if (!user) {
-      alert("Musisz być zalogowany, aby oznaczać filmy!");
+      setErrorMessage("Musisz być zalogowany, aby oznaczać filmy!");
+      setTimeout(() => setErrorMessage(null), 3000);
       return;
     }
 
@@ -100,6 +102,9 @@ const Home: React.FC = () => {
         setWatchedMovies([...watchedMovies, movieId]);
       }
     } catch (error) {
+      setErrorMessage(
+        "Wystąpił błąd podczas oznaczania filmu. Spróbuj ponownie."
+      );
       console.error("Błąd podczas oznaczania filmu:", error);
     }
   };
@@ -129,6 +134,13 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
+      {errorMessage && (
+        <div className="error-message">
+          <p>{errorMessage}</p>
+          <button onClick={() => setErrorMessage(null)}>X</button>
+        </div>
+      )}
+
       <h1 className="home-title">Filmy</h1>
 
       <div className="view-toggle-buttons">

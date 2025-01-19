@@ -10,6 +10,8 @@
 .navbar-title {
   margin: 0;
   font-size: 24px;
+  font-weight: 700;
+  font-family: "Oswald", Times, serif;
 }
 
 .navbar-auth {
@@ -42,7 +44,7 @@
 .logout-message {
   position: fixed;
   top: 60px;
-  right: 10px;
+  right: 20px;
   background-color: #28a745;
   color: white;
   padding: 10px 20px;
