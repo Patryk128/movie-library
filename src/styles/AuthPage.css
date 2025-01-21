@@ -40,7 +40,7 @@
   border-color: #888;
 }
 
-.auth-container .auth-button {
+.auth-button {
   width: 100%;
   padding: 12px;
   font-size: 16px;
@@ -52,18 +52,18 @@
   transition: background-color 0.3s;
 }
 
-.auth-container .auth-button:hover {
+.auth-button:hover {
   background-color: #0056b3;
 }
 
-.auth-container .toggle-auth {
+.toggle-auth {
   margin-top: 15px;
   color: #ccc;
   cursor: pointer;
   font-size: 14px;
 }
 
-.auth-container .toggle-auth:hover {
+.toggle-auth:hover {
   color: #fff;
   text-decoration: underline;
 }

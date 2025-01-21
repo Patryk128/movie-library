@@ -34,7 +34,6 @@ const Navbar: React.FC = () => {
           </Link>
         )}
       </div>
-      {/* Wyświetlanie wiadomości o wylogowaniu */}
       {logoutMessage && <div className="logout-message">{logoutMessage}</div>}
     </nav>
   );
