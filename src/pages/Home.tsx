@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebaseConfig.ts";
-import {
-  collection,
-  doc,
-  setDoc,
-  getDocs,
-  deleteDoc,
-} from "firebase/firestore";
 import { useAuth } from "../context/AuthContext.tsx";
 import "../styles/Home.css";
+import MovieDetailsModal from "../components/MovieDetailsModal";
+import WatchedToggleButton from "../components/WatchedToggleButton";
 
 const BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -83,30 +79,12 @@ const Home: React.FC = () => {
     fetchMovies(searchQuery, page);
   }, [page, searchQuery]);
 
-  const toggleWatched = async (movieId: string): Promise<void> => {
-    if (!user) {
-      setErrorMessage("Musisz być zalogowany, aby oznaczać filmy!");
-      setTimeout(() => setErrorMessage(null), 3000);
-      return;
-    }
-
-    const movieRef = doc(db, `users/${user.uid}/watchedMovies`, movieId);
-    const isWatched = watchedMovies.includes(movieId);
-
-    try {
-      if (isWatched) {
-        await deleteDoc(movieRef);
-        setWatchedMovies(watchedMovies.filter((id) => id !== movieId));
-      } else {
-        await setDoc(movieRef, { movieId });
-        setWatchedMovies([...watchedMovies, movieId]);
-      }
-    } catch (error) {
-      setErrorMessage(
-        "Wystąpił błąd podczas oznaczania filmu. Spróbuj ponownie."
-      );
-      console.error("Błąd podczas oznaczania filmu:", error);
-    }
+  const toggleWatchedInState = (movieId: string, newWatchedState: boolean) => {
+    setWatchedMovies((prevWatched) =>
+      newWatchedState
+        ? [...prevWatched, movieId]
+        : prevWatched.filter((id) => id !== movieId)
+    );
   };
 
   const loadMoreMovies = () => setPage((prevPage) => prevPage + 1);
@@ -184,18 +162,13 @@ const Home: React.FC = () => {
             <h3 className="movie-title" onClick={() => showMovieDetails(movie)}>
               {movie.title}
             </h3>
-            <button
-              onClick={() => toggleWatched(movie.id.toString())}
-              className={`watch-button ${
-                watchedMovies.includes(movie.id.toString())
-                  ? "watched"
-                  : "unwatched"
-              }`}
-            >
-              {watchedMovies.includes(movie.id.toString())
-                ? "Oznacz jako nieobejrzany"
-                : "Oznacz jako obejrzany"}
-            </button>
+            <WatchedToggleButton
+              movieId={movie.id.toString()}
+              isWatched={watchedMovies.includes(movie.id.toString())}
+              userId={user?.uid}
+              onToggle={toggleWatchedInState}
+              setErrorMessage={setErrorMessage}
+            />
           </div>
         ))}
       </div>
@@ -208,17 +181,11 @@ const Home: React.FC = () => {
         </button>
       )}
 
-      {isModalOpen && selectedMovie && (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close-button" onClick={closeModal}>
-              &times;
-            </span>
-            <h2>{selectedMovie.title}</h2>
-            <p>{selectedMovie.overview || "Brak opisu"}</p>
-          </div>
-        </div>
-      )}
+      <MovieDetailsModal
+        movie={selectedMovie}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 };
