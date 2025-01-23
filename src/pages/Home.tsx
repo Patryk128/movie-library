@@ -128,12 +128,16 @@ const Home: React.FC = () => {
         >
           Wszystkie filmy
         </button>
-        <button
-          onClick={() => setViewMode("watched")}
-          className={`toggle-button ${viewMode === "watched" ? "active" : ""}`}
-        >
-          Moje filmy
-        </button>
+        {user && (
+          <button
+            onClick={() => setViewMode("watched")}
+            className={`toggle-button ${
+              viewMode === "watched" ? "active" : ""
+            }`}
+          >
+            Moje filmy
+          </button>
+        )}
       </div>
 
       <div className="search-container">
